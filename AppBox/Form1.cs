@@ -22,8 +22,8 @@ namespace AppBox
         {
             AppBox.Backup.FileToFolder backup = new AppBox.Backup.FileToFolder();
 
-            backup.CellPath = @"c:\TEMP\F1\";
-            backup.BackupPath = @"c:\TEMP\F1Backup\";
+            backup.CellPath = @"c:\TEMP\F1";
+            backup.BackupPath = @"c:\TEMP\F1Backup";
             backup.Go();
             backup.DeleteOldBackup(new DateTime(2023, 10, 1));
 

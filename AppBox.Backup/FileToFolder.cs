@@ -47,7 +47,7 @@ namespace AppBox.Backup
             List<string> files = GetFiles();
             foreach(string file in files)
             {
-                string backupFile = _backupPath + Path.GetFileName(file);
+                string backupFile = $@"{_backupPath}\{Path.GetFileName(file)}";
                 if (File.Exists(backupFile))
                 {
                     if(IsNewFileVersion(file,backupFile))
