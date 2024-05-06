@@ -7,21 +7,27 @@ namespace AppBox.FTPDownloader
 {
     internal static class Program
     {
+        static string ftpUsername = "ftpuser";
+        static string ftpPassword = "F#hRt5zPy";
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            //string ftpPath = @"ftp://bdc.kmsys.ru:53504/Папка1";
+            //string ftpPath = @"ftp://bdc.kmsys.ru:53504/ECAD";
             //string pathOut = @"C:\TEMP";
             string ftpPath = args[0];
             string pathOut = args[1];
 
             List<string> files = GetFileList(ftpPath);
 
-            foreach(string file in files)
-                DownloadFile($"{ftpPath}/{file}", pathOut);
+            foreach (string file in files)
+            {
+                if (DownloadFile($"{ftpPath}/{file}", pathOut))
+                    DeleteFile($"{ftpPath}/{file}");
+            }
         }
 
         private static List<string> GetFileList(string ftpPath)
@@ -43,7 +49,7 @@ namespace AppBox.FTPDownloader
             return directories;
         }
 
-        private static void DownloadFile(string filePath, string pathOut)
+        private static bool DownloadFile(string filePath, string pathOut)
         {
             try
             {
@@ -65,6 +71,24 @@ namespace AppBox.FTPDownloader
                     fs.Write(buffer, 0, size);
                 }
                 fs.Close();
+                response.Close();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private static void DeleteFile(string ftpPath)
+        {
+            try
+            {
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpPath);
+                request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+                request.Method = WebRequestMethods.Ftp.DeleteFile;
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
                 response.Close();
             }
             catch (Exception)
