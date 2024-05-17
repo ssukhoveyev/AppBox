@@ -16,18 +16,25 @@ namespace AppBox.FTPDownloader
         [STAThread]
         static void Main(string[] args)
         {
+            Console.WriteLine("Start");
             //string ftpPath = @"ftp://bdc.kmsys.ru:53504/ECAD";
             //string pathOut = @"C:\TEMP";
             string ftpPath = args[0];
             string pathOut = args[1];
 
+            Console.WriteLine("Arguments received.");
+
             List<string> files = GetFileList(ftpPath);
+
+            Console.WriteLine("Load file list.");
 
             foreach (string file in files)
             {
                 if (DownloadFile($"{ftpPath}/{file}", pathOut))
                     DeleteFile($"{ftpPath}/{file}");
             }
+
+            Console.WriteLine("End.");
         }
 
         private static List<string> GetFileList(string ftpPath)
