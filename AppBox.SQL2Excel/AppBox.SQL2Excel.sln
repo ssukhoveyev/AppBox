@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppBox.SQL2Excel", "AppBox.SQL2Excel\AppBox.SQL2Excel.csproj", "{9860F1F0-774A-412B-B79B-3FB3CA4BAF3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9860F1F0-774A-412B-B79B-3FB3CA4BAF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9860F1F0-774A-412B-B79B-3FB3CA4BAF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9860F1F0-774A-412B-B79B-3FB3CA4BAF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9860F1F0-774A-412B-B79B-3FB3CA4BAF3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5C30B02-F2FA-4F91-BD5D-68C4CF5C8EF3}
+	EndGlobalSection
+EndGlobal
