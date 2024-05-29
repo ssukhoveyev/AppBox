@@ -36,9 +36,23 @@ namespace AppBox.SQL2Excel
             textBoxQuery.Text = Settings.Default.Query;
             connectionString = $"Server= localhost; Database= {Settings.Default.dbName}; Integrated Security=True;";
 
-            CbDBSelect.Items.Add("ecad_bosfor444");
-            CbDBSelect.Items.Add("ecad_bosfor");
-            CbDBSelect.SelectedIndex = 0;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("SELECT name FROM sys.databases", connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                    while (reader.Read())
+                        CbDBSelect.Items.Add(reader.GetValue(0).ToString());
+
+                reader.Close();
+            }
+
+            if(CbDBSelect.Items.Contains(Settings.Default.dbName))
+                CbDBSelect.SelectedIndex = CbDBSelect.Items.IndexOf(Settings.Default.dbName);
+            else
+                CbDBSelect.SelectedIndex = 0;
         }
 
         private async void textBoxQuery_KeyDown(object sender, KeyEventArgs e)
