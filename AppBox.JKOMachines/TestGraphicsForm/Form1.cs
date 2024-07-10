@@ -22,7 +22,7 @@ namespace TestGraphicsForm
         private void Form1_Load(object sender, EventArgs e)
         {
             Beem beem = new Beem();
-            beem.thick = 1000;
+            beem.Lenght = 1000;
 
             //beem.operations = new List<Operation>();
             beem.operations.Add(new Operation() { CoordX = 500, code = "100", name = "Test"});

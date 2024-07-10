@@ -5,10 +5,12 @@ namespace AppBox.JKOMachines.Entities
 {
     public class Beem
     {
-        public int thick;
+        public int Id;
+        public int Lenght;
         public List<Operation> operations;
         public int angle1;
         public int angle2;
+        public string Barcode;
 
         public Beem()
         {
@@ -22,14 +24,14 @@ namespace AppBox.JKOMachines.Entities
                 Pen pen = new Pen(Color.Black, 1);
 
                 //Размер изображения = Длинна заготовки + 20 см (10 на сторону)
-                int picWidth = this.thick + 200;
+                int picWidth = this.Lenght + 200;
                 double k = (double)width / (double)picWidth;
 
                 int picHeight = (int)(height / k);
 
                 Point startPoint = new Point((int)(100 * k), (int)((picHeight - 100) * k));
 
-                graphics.DrawRectangle(pen, new Rectangle(startPoint.X, startPoint.Y, (int)(this.thick * k), 10));
+                graphics.DrawRectangle(pen, new Rectangle(startPoint.X, startPoint.Y, (int)(this.Lenght * k), 10));
 
                 using (Font arialFont = new Font("Arial", 8))
                 {

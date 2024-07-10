@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Beem.cs" />
+    <Compile Include="Entities\CadData.cs" />
+    <Compile Include="Entities\EcadConverter.cs" />
     <Compile Include="Entities\Operation.cs" />
     <Compile Include="Entities\Whip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
