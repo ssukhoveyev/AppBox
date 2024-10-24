@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppBox", "AppBox\AppBox.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppBox.Backup", "AppBox.Backup\AppBox.Backup.csproj", "{2BC7AF35-EBD5-4168-8053-7BEC3487500B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppBox.ProcessHelper", "AppBox.ProcessHelper\AppBox.ProcessHelper.csproj", "{05076A1A-04FC-4E14-AA95-AF861A2F82EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2BC7AF35-EBD5-4168-8053-7BEC3487500B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BC7AF35-EBD5-4168-8053-7BEC3487500B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BC7AF35-EBD5-4168-8053-7BEC3487500B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05076A1A-04FC-4E14-AA95-AF861A2F82EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05076A1A-04FC-4E14-AA95-AF861A2F82EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05076A1A-04FC-4E14-AA95-AF861A2F82EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05076A1A-04FC-4E14-AA95-AF861A2F82EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
