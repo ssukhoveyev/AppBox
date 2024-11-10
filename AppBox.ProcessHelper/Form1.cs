@@ -17,9 +17,15 @@ namespace AppBox.ProcessHelper
         public DataSet1 ds;
         public BindingSource SBind;
         Thread updateThread;
+        Thread fillUserNameThread;
+        public string filterProcName;
+        string appName = "Process Helper";
+
         public Form1()
         {
             InitializeComponent();
+
+            this.Text = appName;
 
             ds = new DataSet1();
             SBind = new BindingSource();
@@ -30,13 +36,14 @@ namespace AppBox.ProcessHelper
 
             updateThread = new Thread(UpdateProcess);
             updateThread.Start();
+
+            fillUserNameThread = new Thread(FillUserName);
+            fillUserNameThread.Start();
         }
 
         void LoadProcess()
         {
-            Process[] allProcesses = Process.GetProcesses();
-
-            foreach (Process process in allProcesses)
+            foreach (Process process in Controller.GetProcessWithFilter(null))
                 Controller.AddProcessRow(process, ds.dtProcess);
         }
 
@@ -46,7 +53,7 @@ namespace AppBox.ProcessHelper
             {
                 Thread.Sleep(1000);
 
-                Process[] allProcesses = Process.GetProcesses();
+                List<Process> allProcesses = Controller.GetProcessWithFilter(filterProcName);
 
                 foreach (Process process in allProcesses)
                 {
@@ -54,15 +61,12 @@ namespace AppBox.ProcessHelper
 
                     if (drs.Length == 1)
                     {
-                        DataSet1.dtProcessRow dr = drs[0];
-                        Action action = () => Controller.SetMemoryValue(process, dr);
+                        Action action = () => Controller.SetMemoryValue(process, drs[0]);
                         Invoke(action);
                     }
                     else if (drs.Length == 0)
                     {
-                        Action action = () => {
-                            Controller.AddProcessRow(process, ds.dtProcess);
-                        };
+                        Action action = () => Controller.AddProcessRow(process, ds.dtProcess);
                         Invoke(action);
                     }
                 }
@@ -82,14 +86,35 @@ namespace AppBox.ProcessHelper
             }
         }
 
+        void FillUserName()
+        {
+            while (true)
+            {
+                try
+                {
+                    DataSet1.dtProcessRow[] drs = (DataSet1.dtProcessRow[])ds.dtProcess.Select($"isnull(user,'') = ''");
+                    if (drs.Length > 0)
+                    {
+                        DataSet1.dtProcessRow dr = drs[0];
+                        if (dr != null)
+                            dr.user = Controller.GetProcessOwner(dr.id);
+                    }
+                }
+                catch { }
+            }
+
+        }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             updateThread.Abort();
+            fillUserNameThread.Abort();
         }
 
         private void отфильтроватьПоНазваниюПроцессаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            filterProcName = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+            this.Text = $"{appName} Filter:{filterProcName}";
+            ds.dtProcess.Rows.Clear();
         }
 
         private void отфильтроватьПоПользователюToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,7 +124,9 @@ namespace AppBox.ProcessHelper
 
         private void удалитьФильтрToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            filterProcName = null;
+            this.Text = appName;
+            ds.dtProcess.Rows.Clear();
         }
     }
 }
