@@ -23,15 +23,25 @@ namespace AppBox.FTPDownloader
             string pathOut = args[1];
 
             Console.WriteLine("Arguments received.");
+            Console.WriteLine($"ftpPath: {ftpPath}");
+            Console.WriteLine($"pathOut: {pathOut}");
 
+            Console.Write("Load file list...");
             List<string> files = GetFileList(ftpPath);
-
-            Console.WriteLine("Load file list.");
+            Console.WriteLine("OK.");
 
             foreach (string file in files)
             {
+                Console.Write($"Load file: {file}...");
                 if (DownloadFile($"{ftpPath}/{file}", pathOut))
+                {
                     DeleteFile($"{ftpPath}/{file}");
+                    Console.WriteLine("OK");
+                }
+                else
+                {
+                    Console.WriteLine("ERROR");
+                }
             }
 
             Console.WriteLine("End.");
